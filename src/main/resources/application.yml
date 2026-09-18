@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth_api_db
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+app:
+  jwt:
+    # Em produção, defina via variável de ambiente JWT_SECRET (nunca commite o segredo real)
+    secret: ${JWT_SECRET:41cf2b9c8e1a4d3b9f0e5a7c6d2b1f8e93a5c7d1b4f6e8a2c9d0b3f5e7a1c4d6}
+    access-token-expiration: 900000       # 15 minutos (em ms)
+    refresh-token-expiration: 604800000   # 7 dias (em ms)
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.gi.authapi: DEBUG
